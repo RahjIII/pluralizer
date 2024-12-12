@@ -12,5 +12,5 @@ Add the .c and .h files into your project.  Include the .h file anyplace that
 you want to use the code.  See the .h file for the important bits, and the
 comments in the .c for how to use them.
 
-See the file "README" (not REAME.md) for info on how to patch this code into a
+See the file <README>(README) (not REAME.md) for info on how to patch this code into a
 dikumud family game.
