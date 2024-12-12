@@ -7,6 +7,7 @@ deer deer
 die dice
 fish fish
 foot feet
+gloves gloves
 goose geese
 knife knives
 knives knives
@@ -31,3 +32,4 @@ wife wives
 woman women
 rations rations
 fires fires
+sleeves sleeves
