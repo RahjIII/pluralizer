@@ -1,0 +1,26 @@
+To patch the verb tense sub into diku gamma act()- 
+----------------------
+--- comm.c	2022-12-11 00:01:15.049665258 -0500
++++ /tmp/comm.c	2022-12-11 00:00:58.633717117 -0500
+@@ -1167,6 +1167,16 @@
+ 						case 'S': i = HSHR((struct char_data *) vict_obj); break;
+ 						case 'e': i = HSSH(ch); break;
+ 						case 'E': i = HSSH((struct char_data *) vict_obj); break;
++						case 'v':
++							strp += act_verb_s2p(strp+1,get_sex_plurality(ch),option,sizeof(option));
++							i = option;
++							break;
++						case 'V':
++							strp += act_verb_s2p(
++								strp+1,get_sex_plurality((struct char_data *)vict_obj),option,sizeof(option)
++							);
++							i = option;
++							break;
+ 						case 'o': i = OBJN(obj, to); break;
+ 						case 'O': i = OBJN((struct obj_data *) vict_obj, to); break;
+ 						case 'p': i = OBJS(obj, to); break;
+----------------------
+
+The plural_nouns.txt and plural_verbs.txt should go into the lib dir.
+
+
