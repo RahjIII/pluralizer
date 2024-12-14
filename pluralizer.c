@@ -1,7 +1,7 @@
 /* pluralizer.c - make plural english nouns. */
 /* Created: Sun May 16 10:07:03 PM EDT 2021 rahjiii */
 /* Copyright © 1991-2021 The Last Outpost Project */
-/* $Id: pluralizer.c,v 1.3 2022/12/11 04:57:42 malakai Exp $ */
+/* $Id: pluralizer.c,v 1.4 2022/12/12 05:16:42 malakai Exp $ */
 
 #include <stdio.h>
 #include <string.h>
@@ -427,13 +427,18 @@ char *pluralize_verb(char *singular) {
 	 * you add –es to the end to match the third-person singular. 
 	 * Converse: verb ends in -xes -sses -shes -ches -tches or -zzes, remove
 	 * -es.
+	 * test word: assesses -> assess
+	 * test word: hisses -> hiss
+	 * test word: catches -> catch
+	 * test word: mashes -> mash
+	 * test word: razzes -> razz
 	 */
 
 	if(is_suffix(singular,"xes") ||
 		is_suffix(singular,"sses") ||
 		is_suffix(singular,"shes") ||
 		is_suffix(singular,"ches") ||
-		is_suffix(singular,"tchs") ||
+		is_suffix(singular,"tches") ||
 		is_suffix(singular,"zzes") 
 	) {
 		return(strndup(singular,singularlen-2));
@@ -441,11 +446,12 @@ char *pluralize_verb(char *singular) {
 
 	/* Grammarly RULE 2: If the verb ends in a consonant + y, remove the y and
 	 * add –ies.
-	 * Converse: if the verb ends in -consonant +ies, remove -ies and add +y 
+	 * Converse: if the verb ends in consonant +ies, remove -ies and add +y 
+	 * test word: allies -> ally, glorifies -> glorify
 	 */
 	if((singularlen >=4) &&
 		is_suffix(singular,"ies") &&
-		is_vowel(*(singular + singularlen - 3))
+		!is_vowel(*(singular + singularlen - 4))
 	) {
 		p += scnprintf(p,singularlen-2,"%s",singular);
 		p += scnprintf(p,pend-p,"y");
@@ -454,7 +460,8 @@ char *pluralize_verb(char *singular) {
 	
 	/* Grammarly RULE 3: with words that end in a vowel + y, follow the normal
 	 * format and add only –s.
-	 * Converse: if the verb ends in -vowel +ys remove -s
+	 * Converse: if the verb ends in vowel +ys remove -s
+	 * test word: toys -> toy, stays -> stay
 	 */
 	if((singularlen >=3) &&
 		is_suffix(singular,"ys") &&
@@ -465,6 +472,7 @@ char *pluralize_verb(char *singular) {
 
 	/* RULE 4: Add s.  
 	 * Converse: if it ends is -s, remove -s 
+	 * test word: steals -> steal, eats -> eat
 	 */
 	if( is_suffix(singular,"s") ) {
 		return(strndup(singular,singularlen-1));
@@ -505,7 +513,7 @@ char *diku_hmhr(struct char_data *ch) {
  * substrings to choose from, option determines which one gets copied into dst.
  * The substrings are separated by ':' or ','.  A substring may contain ':' if
  * it is quoted, or parenthesized.  The list is terminated by a space, or by a
- * close paren.  dst is a location to copy the chosed string into, not to
+ * close paren.  dst is a location to copy the chosen string into, not to
  * excede len. Function returns the number of characters in src that were
  * parsed.
  *
@@ -612,4 +620,5 @@ void test_verb_s2p(struct char_data *ch) {
 	ch->player.sex = chsex;
 
 }
+
 
