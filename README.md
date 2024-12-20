@@ -14,3 +14,8 @@ comments in the .c for how to use them.
 
 See the file <README>(README) (not REAME.md) for info on how to patch this code into a
 dikumud family game.
+
+## GO port
+
+Check out Dr. Pogi's port to the Go language, found in the go subdiretory!
+
