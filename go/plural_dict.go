@@ -1,6 +1,6 @@
 // pluralizer, translated from https://www.last-outpost.com/LO/pubcode/
 // Ported to Go from pluralizer.c by Dr Pogi (drpogi@icloud.com)
-package grmr
+package plural
 
 var nounToPlural = map[string]string {
 	"addendum":		"addenda",
